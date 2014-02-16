@@ -1,0 +1,30 @@
+#!/usr/bin/python
+# Returns the exit code of a process. this does no input sanitization so do not
+# use with untrusted input!
+
+import os
+import subprocess
+import sys
+import traceback
+
+
+def main(args):
+    try:
+        # Open /dev/null for writing to dump unneeded output
+        with open(os.devnull, 'w') as DEVNULL:
+            cmd = subprocess.Popen(args,
+                                   stdout=DEVNULL,
+                                   stderr=DEVNULL)
+            exit = cmd.wait()  # Catch the exit code
+            print >> sys.stdout, exit
+    except:
+        print >> sys.stderr, traceback.format_exc()
+        print >> sys.stdout, 'Unhandled Exception!'
+
+
+if __name__ == '__main__':
+    try:
+        main(sys.argv[1:])
+    except IndexError:
+        print >> sys.stderr, "No status line specified."
+        print >> sys.stdout, "No status line specified."
