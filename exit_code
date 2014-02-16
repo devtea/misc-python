@@ -1,5 +1,5 @@
 #!/usr/bin/python
-# Returns the exit code of a process. this does no input sanitization so do not
+# Returns the exit code of a process. This does no input sanitization so do not
 # use with untrusted input!
 
 import os
